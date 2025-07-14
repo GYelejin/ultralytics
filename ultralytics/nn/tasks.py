@@ -68,6 +68,13 @@ from ultralytics.nn.modules import (
     YOLOEDetect,
     YOLOESegment,
     v10Detect,
+    BottleneckWithKAN, 
+    C2fKAN, 
+    SPPFWithKAN, 
+    C3kKAN, 
+    A2C2fKAN,
+    ConvWithKAN,
+    DetectWithKAN,
 )
 from ultralytics.utils import DEFAULT_CFG_DICT, DEFAULT_CFG_KEYS, LOGGER, YAML, colorstr, emojis
 from ultralytics.utils.checks import check_requirements, check_suffix, check_yaml
@@ -1644,6 +1651,12 @@ def parse_model(d, ch, verbose=True):
             SCDown,
             C2fCIB,
             A2C2f,
+            ConvWithKAN,
+            C2fKAN,
+            BottleneckWithKAN,
+            SPPFWithKAN,
+            C3kKAN,
+            A2C2fKAN,
         }
     )
     repeat_modules = frozenset(  # modules with 'repeat' arguments
@@ -1663,6 +1676,7 @@ def parse_model(d, ch, verbose=True):
             C2fCIB,
             C2PSA,
             A2C2f,
+            A2C2fKAN,
         }
     )
     for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
@@ -1715,7 +1729,7 @@ def parse_model(d, ch, verbose=True):
         elif m is Concat:
             c2 = sum(ch[x] for x in f)
         elif m in frozenset(
-            {Detect, WorldDetect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB, ImagePoolingAttn, v10Detect}
+            {Detect, WorldDetect, YOLOEDetect, Segment, YOLOESegment, Pose, OBB, ImagePoolingAttn, v10Detect, DetectWithKAN}
         ):
             args.append([ch[x] for x in f])
             if m is Segment or m is YOLOESegment:

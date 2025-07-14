@@ -102,6 +102,21 @@ from .transformer import (
     TransformerLayer,
 )
 
+from .block_kan import (
+    BottleneckWithKAN, 
+    C2fKAN, 
+    SPPFWithKAN, 
+    C3kKAN, 
+    A2C2fKAN,
+)
+from .conv_kan import (
+    ConvWithKAN,
+    DWConvWithKAN,
+)
+from .head_kan import (
+    DetectWithKAN,
+)
+
 __all__ = (
     "Conv",
     "Conv2",
@@ -179,4 +194,12 @@ __all__ = (
     "TorchVision",
     "Index",
     "A2C2f",
+    "BottleneckWithKAN",
+    "C2fKAN",
+    "SPPFWithKAN",
+    "C3kKAN",
+    "A2C2fKAN",
+    "ConvWithKAN",
+    "DWConvWithKAN",
+    "DetectWithKAN",
 )
